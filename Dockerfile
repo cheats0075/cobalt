@@ -19,7 +19,11 @@ WORKDIR /app
 
 COPY --from=build --chown=node:node /prod/api /app
 
-
+RUN apk add --no-cache git && \
+    git init && \
+    git remote add origin https://github.com/cheats0075/cobalt && \
+    git fetch --depth 1 origin main && \
+    git checkout FETCH_HEAD
 
 USER node
 
