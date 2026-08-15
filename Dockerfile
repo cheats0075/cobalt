@@ -17,13 +17,13 @@ RUN pnpm deploy --filter=@imput/cobalt-api --prod /prod/api
 FROM base AS api
 WORKDIR /app
 
-COPY --from=build --chown=node:node /prod/api /app
-
 RUN apk add --no-cache git && \
     git init && \
     git remote add origin https://github.com/cheats0075/cobalt && \
     git fetch --depth 1 origin main && \
     git checkout FETCH_HEAD
+
+COPY --from=build --chown=node:node /prod/api /app
 
 USER node
 
